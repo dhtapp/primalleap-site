@@ -68,13 +68,16 @@
       color: var(--orange);
     }
 
-    .hero {
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(10, 10, 10, 0.9)),
-        url("helix.png") center/cover no-repeat;
-      padding: 160px 20px 60px;
-      text-align: center;
-      animation: fadeIn 2s ease-in-out;
-    }
+.hero {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(10,10,10,0.9)),
+    url("helix.png") no-repeat;
+  background-position: center top; /* Shift cropping to top */
+  background-size: contain; /* Show entire image without cropping */
+  padding: 160px 20px 60px;
+  text-align: center;
+  animation: fadeIn 2s ease-in-out;
+}
+
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
