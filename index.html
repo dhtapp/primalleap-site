@@ -293,64 +293,63 @@
         }
       }
 
-.video-wrapper {
-  position: relative;
-  width: 90%;
-  max-width: 300px;
-  margin: 0 auto;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(255, 111, 0, 0.3);
-}
+      .video-wrapper {
+        position: relative;
+        width: 90%;
+        max-width: 300px;
+        margin: 0 auto;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(255, 111, 0, 0.3);
+      }
 
-.tease-video {
-  width: 100%;
-  border: 2px solid var(--orange);
-  border-radius: 10px;
-}
+      .tease-video {
+        width: 100%;
+        border: 2px solid var(--orange);
+        border-radius: 10px;
+      }
 
-/* Volume Button Styling */
-.volume-icon {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  font-size: 1.8rem;
-  color: var(--orange);
-  background-color: rgba(0, 0, 0, 0.6);
-  border: 2px solid var(--orange);
-  padding: 8px 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  z-index: 10;
-}
+      /* Volume Button Styling */
+      .volume-icon {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 1.8rem;
+        color: var(--orange);
+        background-color: rgba(0, 0, 0, 0.6);
+        border: 2px solid var(--orange);
+        padding: 8px 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        z-index: 10;
+      }
 
-.volume-icon:hover {
-  transform: scale(1.1);
-}
+      .volume-icon:hover {
+        transform: scale(1.1);
+      }
 
+      /* Optional Glitch Entry Animation */
+      .glitch-in {
+        animation: glitchFlash 0.8s linear;
+      }
 
-/* Optional Glitch Entry Animation */
-.glitch-in {
-  animation: glitchFlash 0.8s linear;
-}
-
-@keyframes glitchFlash {
-  0% {
-    filter: grayscale(1) brightness(2) contrast(5);
-    opacity: 0;
-    transform: scale(1.1);
-  }
-  50% {
-    opacity: 1;
-    filter: none;
-    transform: scale(1);
-  }
-  100% {
-    filter: none;
-    transform: scale(1);
-  }
-}
+      @keyframes glitchFlash {
+        0% {
+          filter: grayscale(1) brightness(2) contrast(5);
+          opacity: 0;
+          transform: scale(1.1);
+        }
+        50% {
+          opacity: 1;
+          filter: none;
+          transform: scale(1);
+        }
+        100% {
+          filter: none;
+          transform: scale(1);
+        }
+      }
       .countdown {
         font-size: 2rem;
         color: #f4f4f4;
@@ -362,7 +361,6 @@
       .glitch-in:hover {
         animation: glitchFlash 0.5s linear infinite alternate;
       }
-
     </style>
     <!-- Flavicon Images -->
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
@@ -412,26 +410,24 @@
       <meta name="twitter:card" content="summary_large_image" />
 
       <script>
-  const video = document.getElementById("teaseVideo");
-  const toggle = document.getElementById("volumeToggle");
+        const video = document.getElementById("teaseVideo");
+        const toggle = document.getElementById("volumeToggle");
 
-  // Autoplay muted by default, loop starts on user interaction
-  video.autoplay = true;
-  video.loop = true;
-  video.play();
+        // Autoplay muted by default, loop starts on user interaction
+        video.autoplay = true;
+        video.loop = true;
+        video.play();
 
-  toggle.addEventListener("click", () => {
-    if (video.muted) {
-      video.muted = false;
-      toggle.textContent = "🔊";
-    } else {
-      video.muted = true;
-      toggle.textContent = "🔇";
-    }
-  });
-</script>
-
-
+        toggle.addEventListener("click", () => {
+          if (video.muted) {
+            video.muted = false;
+            toggle.textContent = "🔊";
+          } else {
+            video.muted = true;
+            toggle.textContent = "🔇";
+          }
+        });
+      </script>
     </header>
 
     <section class="hero">
@@ -465,18 +461,29 @@
       >
     </section>
 
-<section class="section" id="video-tease" style="background-color: #0a0a0a; padding: 40px 0;">
-  <div class="video-wrapper">
-    <video id="teaseVideo" muted playsinline preload="auto" class="tease-video">
-      <source src="teaser.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-    <div class="volume-icon" id="volumeToggle" title="Unmute / Mute">
-      🔇
-    </div>
-  </div>
-</section>
-
+    <section
+      class="section"
+      id="video-tease"
+      style="background-color: #0a0a0a; padding: 40px 0"
+    >
+      <div class="video-wrapper">
+        <video
+          id="teaseVideo"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="auto"
+          class="tease-video"
+        >
+          <source src="teaser.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="volume-icon" id="volumeToggle" title="Unmute / Mute">
+          🔇
+        </div>
+      </div>
+    </section>
 
     <section class="section" id="drop">
       <h2>What's in the Founding Drop?</h2>
