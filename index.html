@@ -479,9 +479,7 @@
           <source src="teaser.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div class="volume-icon" id="volumeToggle" title="Unmute / Mute">
-          🔇
-        </div>
+        <div class="volume-icon" onclick="toggleMute()">🔊</div>
       </div>
     </section>
 
@@ -550,20 +548,16 @@
       setInterval(updateCountdown, 1000);
     </script>
     <script>
-  const video = document.getElementById("tease-video");
-  const icon = document.querySelector(".volume-icon");
+      const video = document.getElementById("tease-video");
+      const icon = document.querySelector(".volume-icon");
 
-  function toggleMute() {
-    // Only allow audio if video is loaded
-    if (video.readyState >= 2) {
-      video.muted = !video.muted;
-      icon.textContent = video.muted ? "🔇" : "🔊";
-      video.play(); // force play after unmute
-    } else {
-      console.log("Video not ready yet");
-    }
-  }
-</script>
-
+      function toggleMute() {
+        if (video.readyState >= 2) {
+          video.muted = !video.muted;
+          icon.textContent = video.muted ? "🔇" : "🔊";
+          video.play(); // Trigger play again in case it was blocked
+        }
+      }
+    </script>
   </body>
 </html>
