@@ -311,22 +311,21 @@
 
       /* Volume Button Styling */
       .volume-icon {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        font-size: 1.8rem;
-        color: var(--orange);
-        background-color: rgba(0, 0, 0, 0.6);
-        border: 2px solid var(--orange);
-        padding: 8px 10px;
-        border-radius: 50%;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
         cursor: pointer;
-        transition: transform 0.2s ease;
-        z-index: 10;
+        font-size: 32px;
+        color: var(--orange);
+        background: rgba(10, 10, 10, 0.6);
+        border-radius: 50%;
+        padding: 10px;
+        user-select: none;
+        z-index: 2000;
+        transition: color 0.3s ease;
       }
-
       .volume-icon:hover {
-        transform: scale(1.1);
+        color: #fff;
       }
 
       /* Optional Glitch Entry Animation */
@@ -479,7 +478,15 @@
           <source src="teaser.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div class="volume-icon" onclick="toggleMute()">🔊</div>
+        <div
+          class="volume-icon"
+          onclick="toggleMute()"
+          aria-label="Toggle sound"
+          role="button"
+          tabindex="0"
+        >
+          🔇
+        </div>
       </div>
     </section>
 
@@ -551,13 +558,28 @@
       const video = document.getElementById("tease-video");
       const icon = document.querySelector(".volume-icon");
 
+      // Start muted, icon shows muted
+      video.muted = true;
+      icon.textContent = "🔇";
+
       function toggleMute() {
-        if (video.readyState >= 2) {
-          video.muted = !video.muted;
-          icon.textContent = video.muted ? "🔇" : "🔊";
-          video.play(); // Trigger play again in case it was blocked
-        }
+        if (!video) return;
+        video.muted = !video.muted;
+        icon.textContent = video.muted ? "🔇" : "🔊";
+
+        // Try to play video again after unmute
+        video.play().catch(() => {
+          console.warn("User interaction needed to play video with sound.");
+        });
       }
+
+      // Also enable keyboard toggle for accessibility
+      icon.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleMute();
+        }
+      });
     </script>
   </body>
 </html>
