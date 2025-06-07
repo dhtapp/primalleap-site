@@ -549,5 +549,21 @@
       updateCountdown();
       setInterval(updateCountdown, 1000);
     </script>
+    <script>
+  const video = document.getElementById("tease-video");
+  const icon = document.querySelector(".volume-icon");
+
+  function toggleMute() {
+    // Only allow audio if video is loaded
+    if (video.readyState >= 2) {
+      video.muted = !video.muted;
+      icon.textContent = video.muted ? "🔇" : "🔊";
+      video.play(); // force play after unmute
+    } else {
+      console.log("Video not ready yet");
+    }
+  }
+</script>
+
   </body>
 </html>
