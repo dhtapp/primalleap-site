@@ -1,302 +1,546 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Primal Leap: BASE</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --orange: #FF6F00;
-      --black: #0a0a0a;
-      --gray: #999;
-      --white: #f4f4f4;
-      --grit: #1a1a1a;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Primal Leap: BASE</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --orange: #ff6f00;
+        --black: #0a0a0a;
+        --gray: #999;
+        --white: #f4f4f4;
+        --grit: #1a1a1a;
+      }
 
-    * {
-      box-sizing: border-box;
-    }
+      * {
+        box-sizing: border-box;
+      }
 
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      color: var(--white);
-      overflow-x: hidden;
-      background-color: var(--black);
-      background-image: radial-gradient(rgba(255, 111, 0, 0.05) 1px, transparent 1px), radial-gradient(rgba(255, 111, 0, 0.03) 1px, transparent 1px);
-      background-size: 20px 20px, 60px 60px;
-      background-position: 0 0, 10px 10px;
-    }
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        color: var(--white);
+        overflow-x: hidden;
+        background-color: var(--black);
+        background-image: radial-gradient(
+            rgba(255, 111, 0, 0.05) 1px,
+            transparent 1px
+          ),
+          radial-gradient(rgba(255, 111, 0, 0.03) 1px, transparent 1px);
+        background-size: 20px 20px, 60px 60px;
+        background-position: 0 0, 10px 10px;
+      }
 
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 40px;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(10, 10, 10, 0.3));
-      background-image: 
-        linear-gradient(rgba(255,111,0,0.05), rgba(10,10,10,0.95)),
-        url('https://www.transparenttextures.com/patterns/brushed-alum.png');
-      border-bottom: 1px solid #333;
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
-    }
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 40px;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.9),
+          rgba(10, 10, 10, 0.3)
+        );
+        background-image: linear-gradient(
+            rgba(255, 111, 0, 0.05),
+            rgba(10, 10, 10, 0.95)
+          ),
+          url("https://www.transparenttextures.com/patterns/brushed-alum.png");
+        border-bottom: 1px solid #333;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+      }
 
-    header h1 {
-      color: var(--orange);
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
+      header h1 {
+        color: var(--orange);
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
 
-    header nav a {
-      color: var(--white);
-      margin-left: 30px;
-      text-decoration: none;
-      font-weight: 600;
-      text-transform: uppercase;
-      transition: color 0.2s;
-      font-size: 0.9rem;
-    }
+      header nav a {
+        color: var(--white);
+        margin-left: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        transition: color 0.2s;
+        font-size: 0.9rem;
+      }
 
-    header nav a:hover {
-      color: var(--orange);
-    }
+      header nav a:hover {
+        color: var(--orange);
+      }
 
-.hero {
-  background: linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(10,10,10,0.9)),
-    url("helix.png") no-repeat;
-  background-position: center; /* Shift cropping to top */
-  background-size: contain; /* Show entire image without cropping */
-  padding: 160px 20px 60px;
-  text-align: center;
-  animation: fadeIn 2s ease-in-out;
-}
+      .hero {
+        background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.65),
+            rgba(10, 10, 10, 0.9)
+          ),
+          url("helix.png") no-repeat;
+        background-position: center; /* Shift cropping to top */
+        background-size: contain; /* Show entire image without cropping */
+        padding: 160px 20px 60px;
+        text-align: center;
+        animation: fadeIn 2s ease-in-out;
+      }
 
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+      .hero h1 {
+        color: var(--orange);
+        font-size: 4rem;
+        text-transform: uppercase;
+        font-weight: 800;
+        margin-bottom: 25px;
+        animation: pulse 2.5s infinite;
+      }
 
-    .hero h1 {
-      color: var(--orange);
-      font-size: 4rem;
-      text-transform: uppercase;
-      font-weight: 800;
-      margin-bottom: 25px;
-      animation: pulse 2.5s infinite;
-    }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
+      .hero p {
+        max-width: 700px;
+        margin: 20px auto;
+        font-size: 1.4rem;
+        color: #ddd;
+        line-height: 1.6;
+      }
 
-    .hero p {
-      max-width: 700px;
-      margin: 20px auto;
-      font-size: 1.4rem;
-      color: #ddd;
-      line-height: 1.6;
-    }
-
-    .hero img {
+      .hero img {
         margin-top: 40px;
         width: 300px;
-        height: 300px; 
+        height: 300px;
         max-width: 90%;
-        border-radius: 50%; 
-        object-fit: cover; 
+        border-radius: 50%;
+        object-fit: cover;
         box-shadow: 0 12px 25px rgba(255, 111, 0, 0.25);
-    }
+      }
 
+      .cta-button {
+        display: inline-block;
+        margin-top: 30px;
+        background-color: var(--orange);
+        color: #000;
+        padding: 18px 45px;
+        font-weight: 900;
+        border-radius: 10px;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        text-decoration: none;
+        transition: all 0.2s ease-in-out;
+        animation: bounce 2s infinite;
+      }
 
-    .cta-button {
-      display: inline-block;
-      margin-top: 30px;
-      background-color: var(--orange);
-      color: #000;
-      padding: 18px 45px;
-      font-weight: 900;
-      border-radius: 10px;
-      text-transform: uppercase;
-      font-size: 1.2rem;
-      text-decoration: none;
-      transition: all 0.2s ease-in-out;
-      animation: bounce 2s infinite;
-    }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
+      .cta-button:hover {
+        background-color: #e65c00;
+        transform: scale(1.08);
+      }
 
-    .cta-button:hover {
-      background-color: #e65c00;
-      transform: scale(1.08);
-    }
+      .badge {
+        display: inline-block;
+        background-color: var(--orange);
+        color: #000;
+        padding: 12px 25px;
+        font-weight: bold;
+        font-size: 1rem;
+        border-radius: 5px;
+        text-transform: uppercase;
+        margin-bottom: 25px;
+        animation: slideIn 1.5s ease-out;
+      }
 
-    .badge {
-      display: inline-block;
-      background-color: var(--orange);
-      color: #000;
-      padding: 12px 25px;
-      font-weight: bold;
-      font-size: 1rem;
-      border-radius: 5px;
-      text-transform: uppercase;
-      margin-bottom: 25px;
-      animation: slideIn 1.5s ease-out;
-    }
+      @keyframes slideIn {
+        from {
+          transform: translateX(-50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
 
-    @keyframes slideIn {
-      from { transform: translateX(-50px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
+      .section {
+        padding: 20px 20px;
+        background-color: var(--grit);
+        text-align: center;
+      }
 
-    .section {
-      padding: 20px 20px;
-      background-color: var(--grit);
-      text-align: center;
-    }
+      .section h2 {
+        color: var(--orange);
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
 
-    .section h2 {
-      color: var(--orange);
-      font-size: 2.5rem;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
+      .section p {
+        max-width: 600px;
+        margin: 0 auto 20px;
+        font-size: 1.25rem;
+        color: #ccc;
+        line-height: 1.6;
+      }
 
-    .section p {
-      max-width: 600px;
-      margin: 0 auto 20px;
-      font-size: 1.25rem;
-      color: #ccc;
-      line-height: 1.6;
-    }
-
-    .product-image {
+      .product-image {
         margin: 30px auto 0;
         max-width: 300px;
         width: 100%;
         display: block;
+      }
+
+      .footer {
+        background: #000;
+        color: var(--gray);
+        padding: 20px;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 600px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .hero p {
+          font-size: 1.1rem;
+        }
+
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 15px 20px;
+        }
+
+        header nav a {
+          margin-left: 0;
+          margin-top: 10px;
+        }
+
+        .countdown {
+          font-size: 1.5rem;
+          color: #f4f4f4;
+          margin-top: 30px;
+          font-weight: bold;
+          letter-spacing: 1px;
+        }
+
+        @media (max-width: 480px) {
+          .cta-button {
+            padding: 14px 25px;
+            font-size: 1rem;
+          }
+
+          .section h2 {
+            font-size: 2rem;
+          }
+
+          .section p {
+            font-size: 1.1rem;
+          }
+
+          .hero {
+            padding: 120px 15px 40px;
+          }
+
+          .hero h1 {
+            font-size: 2rem;
+          }
+
+          .hero img {
+            width: 200px;
+            height: 200px;
+          }
+
+          header nav a {
+            font-size: 0.85rem;
+          }
+        }
+      }
+
+.video-wrapper {
+  position: relative;
+  width: 90%;
+  max-width: 300px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(255, 111, 0, 0.3);
 }
 
-    .footer {
-      background: #000;
-      color: var(--gray);
-      padding: 20px;
-      text-align: center;
-      font-size: 0.9rem;
-    }
+.tease-video {
+  width: 100%;
+  border: 2px solid var(--orange);
+  border-radius: 10px;
+}
 
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-      .hero p {
-        font-size: 1.1rem;
-      }
+/* Volume Button Styling */
+.volume-icon {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 1.8rem;
+  color: var(--orange);
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--orange);
+  padding: 8px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  z-index: 10;
+}
 
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 15px 20px;
-      }
+.volume-icon:hover {
+  transform: scale(1.1);
+}
 
-      header nav a {
-        margin-left: 0;
-        margin-top: 10px;
-      }
 
+/* Optional Glitch Entry Animation */
+.glitch-in {
+  animation: glitchFlash 0.8s linear;
+}
+
+@keyframes glitchFlash {
+  0% {
+    filter: grayscale(1) brightness(2) contrast(5);
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  50% {
+    opacity: 1;
+    filter: none;
+    transform: scale(1);
+  }
+  100% {
+    filter: none;
+    transform: scale(1);
+  }
+}
       .countdown {
-        font-size: 1.5rem;
+        font-size: 2rem;
         color: #f4f4f4;
         margin-top: 30px;
         font-weight: bold;
         letter-spacing: 1px;
+      }
+
+      .glitch-in:hover {
+        animation: glitchFlash 0.5s linear infinite alternate;
+      }
+
+    </style>
+    <!-- Flavicon Images -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  </head>
+  <body>
+    <header>
+      <h1>Primal Leap: BASE</h1>
+      <nav>
+        <a href="#drop">Drop</a>
+        <a href="#why">Why</a>
+        <a href="#prototype">Be the Prototype</a>
+      </nav>
+
+      <!-- Google Analytics -->
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"
+      ></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
         }
+        gtag("js", new Date());
+        gtag("config", "G-BSKJGWL632");
+      </script>
+      <!-- End Google Analytics -->
+
+      <!-- SEO Meta Tags -->
+      <meta
+        name="description"
+        content="5g clinical-strength creatine monohydrate. BASE is the punch your stack’s been missing. Zero sugar. No BS. Just raw fuel."
+      />
+      <meta
+        name="keywords"
+        content="creatine gummy, pre-workout, BASE supplement, no sugar creatine, Daily Boost Labs"
+      />
+      <meta name="author" content="Daily Boost Labs" />
+      <meta property="og:title" content="Primal Leap: BASE" />
+      <meta
+        property="og:description"
+        content="5g creatine monohydrate. Zero sugar. No chalk. Just fuel."
+      />
+      <meta property="og:image" content="https://yourdomain.com/helix.png" />
+      <meta property="og:url" content="https://yourdomain.com" />
+      <meta name="twitter:card" content="summary_large_image" />
+
+      <script>
+  const video = document.getElementById("teaseVideo");
+  const toggle = document.getElementById("volumeToggle");
+
+  // Autoplay muted by default, loop starts on user interaction
+  video.autoplay = true;
+  video.loop = true;
+  video.play();
+
+  toggle.addEventListener("click", () => {
+    if (video.muted) {
+      video.muted = false;
+      toggle.textContent = "🔊";
+    } else {
+      video.muted = true;
+      toggle.textContent = "🔇";
     }
-  </style>
-  <!-- Flavicon Images -->
-   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-</head>
-<body>
-  <header>
-    <h1>Primal Leap: BASE</h1>
-    <nav>
-      <a href="#drop">Drop</a>
-      <a href="#why">Why</a>
-      <a href="#prototype">Be the Prototype</a>
-    </nav>
-  </header>
-
-  <section class="hero">
-    <a href="#" class="cta-button" data-tally-open="wvvedX" data-tally-layout="modal" data-tally-width="600">Join the Swarm</a>
-    <h1>BASE is Coming</h1>
-    <p>5g clinical-strength creatine monohydrate. Zero sugar. Just raw fuel. BASE is the punch your stack’s been missing. No shaker. No chalk. No BS.</p>
-    <p><strong>Pop one. Unleash the swarm. Feel it kick in within 5 days.</strong></p>
-    <div class="countdown" id="countdown"></div>
-    <br>
-    <a href="#" class="cta-button" data-tally-open="wvvedX" data-tally-layout="modal" data-tally-width="600">Join the Swarm</a>
-  </section>
-
-  <section class="section" id="drop">
-    <h2>What's in the Founding Drop?</h2>
-    <p>🔥 Founding member pricing<br>
-    🪧 Your name on the Founding Wall<br>
-    🎟️ Founding edition Helix sticker<br>
-    🚚 Front-of-line delivery priority</p>
-    <img src="package.PNG" alt="BASE Creatine Gummy Package" class="product-image" />
-    <br>
-    <p>No spam. Just raw updates. Unsubscribe anytime.</p>
-  </section>
-
-  <section class="section" id="why">
-    <h2>Why BASE?</h2>
-    <p>Because you're tired of scooping powdered lies. Because your fuel shouldn't taste like candy store BS. Because gummies should go hard too.</p>
-  </section>
-
-  <section class="section" id="prototype">
-    <h2>Be the Prototype</h2>
-    <p>This is for the ones who lift more than weight — they lift standards. BASE is a launchpad. You're first in. Don't watch the drop. Be the drop.</p>
-  </section>
-
-  <footer class="footer">
-    &copy; 2025 Daily Boost Labs. All rights reserved.
-  </footer>
-
-  <script src="https://tally.so/widgets/embed.js" async></script>
-  <script>
-  const launchDate = new Date("2025-07-01T00:00:00").getTime();
-  const countdown = document.getElementById("countdown");
-
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = launchDate - now;
-
-    if (distance <= 0) {
-      countdown.innerHTML = "🚀 BASE has launched!";
-      return;
-    }
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    countdown.innerHTML = `🔥 Launching in ${days}d ${hours}h ${minutes}m ${seconds}s`;
-  }
-
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  });
 </script>
-</body>
+
+
+    </header>
+
+    <section class="hero">
+      <a
+        href="#"
+        class="cta-button"
+        data-tally-open="wvvedX"
+        data-tally-layout="modal"
+        data-tally-width="600"
+        >Join the Swarm</a
+      >
+      <h1>BASE is Coming</h1>
+      <p>
+        5g clinical-strength creatine monohydrate. Zero sugar. Just raw fuel.
+        BASE is the punch your stack’s been missing. No shaker. No chalk. No BS.
+      </p>
+      <p>
+        <strong
+          >Pop one. Unleash the swarm. Feel it kick in within 5 days.</strong
+        >
+      </p>
+      <div class="countdown" id="countdown"></div>
+      <br />
+      <a
+        href="#"
+        class="cta-button"
+        data-tally-open="wvvedX"
+        data-tally-layout="modal"
+        data-tally-width="600"
+        >Join the Swarm</a
+      >
+    </section>
+
+<section class="section" id="video-tease" style="background-color: #0a0a0a; padding: 40px 0;">
+  <div class="video-wrapper">
+    <video id="teaseVideo" muted playsinline preload="auto" class="tease-video">
+      <source src="teaser.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="volume-icon" id="volumeToggle" title="Unmute / Mute">
+      🔇
+    </div>
+  </div>
+</section>
+
+
+    <section class="section" id="drop">
+      <h2>What's in the Founding Drop?</h2>
+      <p>
+        🔥 Founding member pricing<br />
+        🪧 Your name on the Founding Wall<br />
+        🎟️ Founding edition Helix sticker<br />
+        🚚 Front-of-line delivery priority
+      </p>
+      <img
+        src="package.PNG"
+        alt="BASE Creatine Gummy Package"
+        class="product-image"
+      />
+      <br />
+      <p>No spam. Just raw updates. Unsubscribe anytime.</p>
+    </section>
+
+    <section class="section" id="why">
+      <h2>Why BASE?</h2>
+      <p>
+        Because you're tired of scooping powdered lies. Because your fuel
+        shouldn't taste like candy store BS. Because gummies should go hard too.
+      </p>
+    </section>
+
+    <section class="section" id="prototype">
+      <h2>Be the Prototype</h2>
+      <p>
+        This is for the ones who lift more than weight — they lift standards.
+        BASE is a launchpad. You're first in. Don't watch the drop. Be the drop.
+      </p>
+    </section>
+
+    <footer class="footer">
+      &copy; 2025 Daily Boost Labs. All rights reserved.
+    </footer>
+
+    <script src="https://tally.so/widgets/embed.js" async></script>
+    <script>
+      const launchDate = new Date("2025-07-01T00:00:00").getTime();
+      const countdown = document.getElementById("countdown");
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = launchDate - now;
+
+        if (distance <= 0) {
+          countdown.innerHTML = "🚀 BASE has launched!";
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdown.innerHTML = `🔥 Launching in ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    </script>
+  </body>
 </html>
