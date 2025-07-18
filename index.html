@@ -1,268 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BASE Package Design</title>
-    <style>
-        body {
-            background: #0a0a0a;
-            margin: 0;
-            padding: 40px;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        
-        .package-container {
-            position: relative;
-            width: 300px;
-            height: 400px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-            border-radius: 20px;
-            border: 3px solid #00ff41;
-            box-shadow: 
-                0 0 30px rgba(0, 255, 65, 0.5),
-                inset 0 0 20px rgba(0, 255, 65, 0.1);
-            overflow: hidden;
-            transform: perspective(1000px) rotateX(5deg) rotateY(-5deg);
-            animation: energyPulse 3s ease-in-out infinite;
-        }
-        
-        @keyframes energyPulse {
-            0%, 100% { 
-                box-shadow: 
-                    0 0 30px rgba(0, 255, 65, 0.5),
-                    inset 0 0 20px rgba(0, 255, 65, 0.1);
-            }
-            50% { 
-                box-shadow: 
-                    0 0 50px rgba(0, 255, 65, 0.8),
-                    inset 0 0 30px rgba(0, 255, 65, 0.2);
-            }
-        }
-        
-        .package-top {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 80px;
-            background: linear-gradient(45deg, #00ff41, #39ff14);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 2px solid #003d0f;
-        }
-        
-        .brand-name {
-            font-size: 36px;
-            font-weight: 900;
-            color: #000;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.3);
-            letter-spacing: 4px;
-        }
-        
-        .product-info {
-            position: absolute;
-            top: 100px;
-            left: 20px;
-            right: 20px;
-            text-align: center;
-            color: #fff;
-        }
-        
-        .product-title {
-            font-size: 24px;
-            font-weight: 800;
-            color: #00ff41;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px #00ff41;
-        }
-        
-        .product-subtitle {
-            font-size: 12px;
-            color: #ccc;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .dosage-info {
-            font-size: 20px;
-            font-weight: 700;
-            color: #39ff14;
-            margin-bottom: 10px;
-            text-shadow: 0 0 8px #39ff14;
-        }
-        
-        .flavor-badge {
-            background: linear-gradient(45deg, #ff1744, #ff4569);
-            color: #fff;
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            display: inline-block;
-            margin: 10px 0;
-            box-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
-        }
-        
-        .gummy-visual {
-            position: absolute;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 80px;
-            background: radial-gradient(circle, #ff1744, #cc0e35);
-            border-radius: 50px;
-            border: 3px solid #00ff41;
-            box-shadow: 
-                0 0 15px rgba(0, 255, 65, 0.6),
-                inset 0 0 10px rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            animation: bounce 2s ease-in-out infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
-        }
-        
-        .package-bottom {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background: linear-gradient(45deg, #003d0f, #00ff41);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-top: 2px solid #00ff41;
-        }
-        
-        .zero-sugar {
-            color: #000;
-            font-size: 14px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .energy-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(2px 2px at 50px 100px, #00ff41, transparent),
-                radial-gradient(1px 1px at 150px 200px, #39ff14, transparent),
-                radial-gradient(2px 2px at 200px 50px, #00ff41, transparent),
-                radial-gradient(1px 1px at 80px 300px, #39ff14, transparent);
-            opacity: 0.3;
-            animation: particleFloat 8s linear infinite;
-        }
-        
-        @keyframes particleFloat {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-20px) rotate(360deg); }
-        }
-        
-        .founding-edition {
-            position: absolute;
-            top: 20px;
-            right: -30px;
-            background: linear-gradient(45deg, #ff1744, #ff4569);
-            color: #fff;
-            padding: 5px 40px;
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            transform: rotate(45deg);
-            box-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
-        }
-        
-        .instructions {
-            margin-top: 40px;
-            color: #ccc;
-            text-align: center;
-            font-size: 14px;
-        }
-        
-        .download-btn {
-            display: inline-block;
-            background: linear-gradient(45deg, #00ff41, #39ff14);
-            color: #000;
-            padding: 12px 24px;
-            margin: 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
-            transition: all 0.3s ease;
-        }
-        
-        .download-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(0, 255, 65, 0.8);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Primal Leap: BASE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --neon-green: #00ff41;
+      --dark-green: #003d0f;
+      --black: #0a0a0a;
+      --gray: #999;
+      --white: #f4f4f4;
+      --grit: #1a1a1a;
+      --energy-green: #39ff14;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--white);
+      background-color: var(--black);
+      background-image:
+        radial-gradient(rgba(0, 255, 65, 0.08) 1px, transparent 1px),
+        radial-gradient(rgba(0, 255, 65, 0.04) 1px, transparent 1px);
+      background-size: 20px 20px, 60px 60px;
+      background-position: 0 0, 10px 10px;
+      overflow-x: hidden;
+      line-height: 1.5;
+      position: relative;
+    }
+
+    /* Energy particles animation */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(2px 2px at 20px 30px, var(--neon-green), transparent),
+        radial-gradient(2px 2px at 40px 70px, var(--energy-green), transparent),
+        radial-gradient(1px 1px at 90px 40px, var(--neon-green), transparent),
+        radial-gradient(1px 1px at 130px 80px, var(--energy-green), transparent),
+        radial-gradient(2px 2px at 160px 30px, var(--neon-green), transparent);
+      background-repeat: repeat;
+      background-size: 200px 100px;
+      animation: energyFloat 20s linear infinite;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes energyFloat {
+      0% { transform: translateY(0) translateX(0); }
+      33% { transform: translateY(-100px) translateX(100px); }
+      66% { transform: translateY(-50px) translateX(-50px); }
+      100% { transform: translateY(0) translateX(0); }
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background:
+        linear-gradient(rgba(0, 255, 65, 0.1), rgba(10,10,10,0.95)),
+        url('https://www.transparenttextures.com/patterns/brushed-alum.png');
+      background-blend-mode: overlay;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #003d0f;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.4), 0 0 20px rgba(0, 255, 65, 0.2);
+      z-index: 9999;
+    }
+
+    header h1 {
+      color: var(--neon-green);
+      font-weight: 800;
+      font-size: 1.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin: 0;
+      text-shadow: 0 0 15px var(--neon-green);
+    }
+
+    header nav a {
+      color: var(--white);
+      margin-left: 30px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+      user-select: none;
+    }
+
+    header nav a:hover,
+    header nav a:focus {
+      color: var(--neon-green);
+      text-shadow: 0 0 10px var(--neon-green);
+      outline: none;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 160px 20px 80px;
+      text-align: center;
+      position: relative;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.75), rgba(10,10,10,0.95)),
+        url('helix.png') no-repeat center center;
+      background-size: contain;
+      color: var(--white);
+      animation: fadeIn 2s ease forwards;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--neon-green);
+      animation: pulse 3s ease-in-out infinite;
+      margin: 0;
+      text-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green);
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); text-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green); }
+      50% { transform: scale(1.07); text-shadow: 0 0 30px var(--neon-green), 0 0 60px var(--neon-green); }
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.4rem;
+      color: #ddd;
+      text-shadow: 0 0 6px rgba(0,0,0,0.8);
+      font-weight: 500;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero p strong {
+      color: var(--energy-green);
+      text-shadow: 0 0 10px var(--energy-green);
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(45deg, var(--neon-green), var(--energy-green));
+      color: #000;
+      font-weight: 900;
+      padding: 18px 50px;
+      font-size: 1.25rem;
+      border-radius: 12px;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(0, 255, 65, 0.5), 0 0 30px rgba(0, 255, 65, 0.3);
+      transition: all 0.25s ease;
+      user-select: none;
+      animation: bounce 2s ease-in-out infinite;
+      align-self: center;
+      margin-top: 25px;
+      max-width: 280px;
+      position: relative;
+      z-index: 2;
+      border: 2px solid var(--neon-green);
+    }
+
+    .cta-button:hover,
+    .cta-button:focus {
+      background: linear-gradient(45deg, var(--energy-green), var(--neon-green));
+      transform: scale(1.1);
+      outline: none;
+      box-shadow: 0 10px 30px rgba(0, 255, 65, 0.75), 0 0 50px rgba(0, 255, 65, 0.5);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    .countdown {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: #f4f4f4;
+      margin-top: 30px;
+      letter-spacing: 1.2px;
+      text-shadow: 0 0 15px var(--neon-green);
+      user-select: none;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: var(--grit);
+      border-radius: 12px;
+      margin-bottom: 50px;
+      box-shadow: 0 0 20px rgba(0, 255, 65, 0.15), inset 0 0 20px rgba(0, 255, 65, 0.05);
+      text-align: center;
+      border: 1px solid rgba(0, 255, 65, 0.2);
+    }
+
+    .section h2 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      color: var(--neon-green);
+      text-transform: uppercase;
+      margin-bottom: 25px;
+      text-shadow: 0 0 15px var(--neon-green);
+    }
+
+    .section p {
+      font-size: 1.3rem;
+      color: #ccc;
+      max-width: 650px;
+      margin: 0 auto 20px;
+      font-weight: 500;
+      line-height: 1.6;
+      user-select: none;
+    }
+
+    .product-image {
+      display: block;
+      margin: 30px auto 0;
+      max-width: 300px;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 255, 65, 0.25);
+      border: 2px solid rgba(0, 255, 65, 0.3);
+    }
+
+    /* VIDEO TEASE */
+    .video-wrapper {
+      position: relative;
+      width: 90%;
+      max-width: 320px;
+      margin: 0 auto 60px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(0, 255, 65, 0.35);
+      border: 2px solid rgba(0, 255, 65, 0.4);
+    }
+
+    video#teaseVideo {
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+      filter: brightness(0.9);
+      transition: filter 0.3s ease;
+    }
+    video#teaseVideo.unmuted {
+      filter: brightness(1);
+    }
+
+    .volume-icon {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: rgba(10, 10, 10, 0.7);
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 32px;
+      color: var(--neon-green);
+      user-select: none;
+      box-shadow: 0 0 15px var(--neon-green);
+      transition: all 0.3s ease;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--neon-green);
+    }
+    .volume-icon:hover,
+    .volume-icon:focus {
+      color: var(--energy-green);
+      outline: none;
+      box-shadow: 0 0 25px var(--energy-green);
+      transform: scale(1.1);
+    }
+
+    /* FOOTER */
+    footer.footer {
+      background-color: #000;
+      color: var(--gray);
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 0.9rem;
+      user-select: none;
+      border-top: 1px solid rgba(0, 255, 65, 0.2);
+    }
+
+    /* Add some aggressive messaging styles */
+    .aggressive-text {
+      color: var(--energy-green);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px var(--energy-green);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .section h2 {
+        font-size: 2.25rem;
+      }
+
+      .section p {
+        font-size: 1.15rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 20px;
+      }
+
+      header nav a {
+        margin-left: 0;
+        margin-top: 12px;
+        font-size: 0.85rem;
+      }
+
+      .hero {
+        padding: 120px 15px 60px;
+      }
+
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .cta-button {
+        font-size: 1rem;
+        padding: 16px 35px;
+        max-width: 90%;
+      }
+
+      .video-wrapper {
+        max-width: 280px;
+        margin-bottom: 40px;
+      }
+
+      .countdown {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div>
-        <div class="package-container">
-            <div class="founding-edition">Founding Edition</div>
-            <div class="energy-particles"></div>
-            
-            <div class="package-top">
-                <div class="brand-name">BASE</div>
-            </div>
-            
-            <div class="product-info">
-                <div class="product-title">CREATINE GUMMIES</div>
-                <div class="product-subtitle">Clinical Strength • Zero Sugar</div>
-                <div class="dosage-info">5G CREATINE</div>
-                <div class="flavor-badge">WATERMELON</div>
-            </div>
-            
-            <div class="gummy-visual">🔥</div>
-            
-            <div class="package-bottom">
-                <div class="zero-sugar">Zero Sugar Beast Mode</div>
-            </div>
-        </div>
-        
-        <div class="instructions">
-            <p>This is a conceptual design for your BASE package.</p>
-            <p>Key improvements:</p>
-            <ul style="text-align: left; max-width: 300px;">
-                <li>High-contrast neon green branding</li>
-                <li>Aggressive, industrial aesthetic</li>
-                <li>Watermelon flavor highlight</li>
-                <li>Founding Edition badge</li>
-                <li>Animated energy effects</li>
-                <li>3D perspective for depth</li>
-            </ul>
-            <a href="#" class="download-btn" onclick="downloadAsImage()">Generate High-Res Version</a>
-        </div>
+  <header>
+    <h1>Primal Leap: BASE</h1>
+    <nav>
+      <a href="#drop">Drop</a>
+      <a href="#why">Why</a>
+      <a href="#prototype">Be the Prototype</a>
+    </nav>
+  </header>
+
+  <section class="hero" role="banner" aria-label="Product launch hero">
+    <a
+      href="#"
+      class="cta-button"
+      data-tally-open="wvvedX"
+      data-tally-layout="modal"
+      data-tally-width="600"
+      >Join the Swarm</a
+    >
+    <h1>BASE is Coming</h1>
+    <p>5g clinical-strength creatine monohydrate. Zero sugar. Just raw fuel. BASE is the punch your stack's been missing. No shaker. No chalk. No BS.</p>
+    <p><strong>Pop one. Unleash the swarm. Feel it kick in within 5 days.</strong></p>
+    <p class="aggressive-text">GET JACKED • LIFT HEAVY • OUTPERFORM EVERYONE</p>
+    <div class="countdown" id="countdown" aria-live="polite" aria-atomic="true"></div>
+    <a
+      href="#"
+      class="cta-button"
+      data-tally-open="wvvedX"
+      data-tally-layout="modal"
+      data-tally-width="600"
+      >Join the Swarm</a
+    >
+  </section>
+
+  <section
+    class="section"
+    id="video-tease"
+    aria-label="Video teaser section"
+    style="background-color: var(--black);"
+  >
+    <div class="video-wrapper">
+      <video
+        id="teaseVideo"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="auto"
+        aria-label="Teaser video of BASE product"
+      >
+        <source src="teaser.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     </div>
-    
-    <script>
-        function downloadAsImage() {
-            // This would typically use html2canvas or similar library
-            // For now, it's a placeholder
-            alert("To create a high-resolution version, you can:\n\n1. Use this design as reference for a graphic designer\n2. Screenshot this at high resolution\n3. Use tools like html2canvas to convert to PNG\n4. Recreate in design software like Figma/Photoshop");
-        }
-    </script>
+  </section>
+
+  <div
+    class="volume-icon"
+    role="button"
+    tabindex="0"
+    aria-pressed="true"
+    aria-label="Toggle video sound"
+  >
+    🔇
+  </div>
+
+  <section class="section" id="drop" aria-label="Founding drop details">
+    <h2>What's in the Founding Drop?</h2>
+    <p>🔥 Founding member pricing<br />🪧 Your name on the Founding Wall<br />🎟️ Founding edition Helix sticker<br />🚚 Front-of-line delivery priority</p>
+    <p class="aggressive-text">Watermelon Flavor - Zero Sugar Beast Mode</p>
+    <img src="package.PNG" alt="BASE Creatine Gummy Package" class="product-image" />
+    <p>No spam. Just raw updates. Unsubscribe anytime.</p>
+  </section>
+
+  <section class="section" id="why" aria-label="Why BASE section">
+    <h2>Why BASE?</h2>
+    <p>Because you're tired of scooping powdered lies. Because your fuel shouldn't taste like candy store BS. Because gummies should go hard too.</p>
+    <p class="aggressive-text">Raw. Intense. Unstoppable.</p>
+  </section>
+
+  <section class="section" id="prototype" aria-label="Be the Prototype section">
+    <h2>Be the Prototype</h2>
+    <p>This is for the ones who lift more than weight — they lift standards. BASE is a launchpad. You're first in. Don't watch the drop. Be the drop.</p>
+    <p class="aggressive-text">Lead the Pack. Set the Standard. Dominate.</p>
+  </section>
+
+  <footer class="footer" role="contentinfo">
+    &copy; 2025 Daily Boost Labs. All rights reserved.
+  </footer>
+
+  <script src="https://tally.so/widgets/embed.js" async></script>
+
+  <script>
+    // Countdown
+    const launchDate = new Date("2025-07-01T00:00:00").getTime();
+    const countdown = document.getElementById("countdown");
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+
+      if (distance <= 0) {
+        countdown.textContent = "🚀 BASE has launched!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdown.textContent = `⚡ Launching in ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Video Mute Toggle
+    const video = document.getElementById("teaseVideo");
+    const volumeIcon = document.querySelector(".volume-icon");
+
+    function toggleMute() {
+      if (!video) return;
+
+      video.muted = !video.muted;
+      volumeIcon.textContent = video.muted ? "🔇" : "🔊";
+      volumeIcon.setAttribute("aria-pressed", !video.muted);
+      if (!video.muted) {
+        video.classList.add("unmuted");
+      } else {
+        video.classList.remove("unmuted");
+      }
+
+      // Try to play video with sound on
+      video.play().catch(() => {
+        console.warn("User interaction needed to play video with sound.");
+      });
+    }
+
+    volumeIcon.addEventListener("click", toggleMute);
+    volumeIcon.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleMute();
+      }
+    });
+  </script>
 </body>
 </html>
