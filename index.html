@@ -7,11 +7,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --orange: #ff6f00;
+      --neon-green: #00ff41;
+      --dark-green: #003d0f;
       --black: #0a0a0a;
       --gray: #999;
       --white: #f4f4f4;
       --grit: #1a1a1a;
+      --energy-green: #39ff14;
     }
 
     *, *::before, *::after {
@@ -24,12 +26,42 @@
       color: var(--white);
       background-color: var(--black);
       background-image:
-        radial-gradient(rgba(255, 111, 0, 0.05) 1px, transparent 1px),
-        radial-gradient(rgba(255, 111, 0, 0.03) 1px, transparent 1px);
+        radial-gradient(rgba(0, 255, 65, 0.08) 1px, transparent 1px),
+        radial-gradient(rgba(0, 255, 65, 0.04) 1px, transparent 1px);
       background-size: 20px 20px, 60px 60px;
       background-position: 0 0, 10px 10px;
       overflow-x: hidden;
       line-height: 1.5;
+      position: relative;
+    }
+
+    /* Energy particles animation */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(2px 2px at 20px 30px, var(--neon-green), transparent),
+        radial-gradient(2px 2px at 40px 70px, var(--energy-green), transparent),
+        radial-gradient(1px 1px at 90px 40px, var(--neon-green), transparent),
+        radial-gradient(1px 1px at 130px 80px, var(--energy-green), transparent),
+        radial-gradient(2px 2px at 160px 30px, var(--neon-green), transparent);
+      background-repeat: repeat;
+      background-size: 200px 100px;
+      animation: energyFloat 20s linear infinite;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes energyFloat {
+      0% { transform: translateY(0) translateX(0); }
+      33% { transform: translateY(-100px) translateX(100px); }
+      66% { transform: translateY(-50px) translateX(-50px); }
+      100% { transform: translateY(0) translateX(0); }
     }
 
     header {
@@ -37,25 +69,26 @@
       top: 0;
       width: 100%;
       background:
-        linear-gradient(rgba(255, 111, 0, 0.1), rgba(10,10,10,0.95)),
+        linear-gradient(rgba(0, 255, 65, 0.1), rgba(10,10,10,0.95)),
         url('https://www.transparenttextures.com/patterns/brushed-alum.png');
       background-blend-mode: overlay;
       padding: 20px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #333;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.4);
+      border-bottom: 1px solid #003d0f;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.4), 0 0 20px rgba(0, 255, 65, 0.2);
       z-index: 9999;
     }
 
     header h1 {
-      color: var(--orange);
+      color: var(--neon-green);
       font-weight: 800;
       font-size: 1.7rem;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       margin: 0;
+      text-shadow: 0 0 15px var(--neon-green);
     }
 
     header nav a {
@@ -65,13 +98,14 @@
       font-size: 0.9rem;
       text-transform: uppercase;
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
       user-select: none;
     }
 
     header nav a:hover,
     header nav a:focus {
-      color: var(--orange);
+      color: var(--neon-green);
+      text-shadow: 0 0 10px var(--neon-green);
       outline: none;
     }
 
@@ -93,6 +127,17 @@
       gap: 20px;
     }
 
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px);}
       to { opacity: 1; transform: translateY(0);}
@@ -102,15 +147,17 @@
       font-size: 4rem;
       font-weight: 800;
       text-transform: uppercase;
-      color: var(--orange);
+      color: var(--neon-green);
       animation: pulse 3s ease-in-out infinite;
       margin: 0;
-      text-shadow: 0 0 10px var(--orange);
+      text-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green);
+      position: relative;
+      z-index: 2;
     }
 
     @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.07); }
+      0%, 100% { transform: scale(1); text-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green); }
+      50% { transform: scale(1.07); text-shadow: 0 0 30px var(--neon-green), 0 0 60px var(--neon-green); }
     }
 
     .hero p {
@@ -120,11 +167,18 @@
       color: #ddd;
       text-shadow: 0 0 6px rgba(0,0,0,0.8);
       font-weight: 500;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero p strong {
+      color: var(--energy-green);
+      text-shadow: 0 0 10px var(--energy-green);
     }
 
     .cta-button {
       display: inline-block;
-      background-color: var(--orange);
+      background: linear-gradient(45deg, var(--neon-green), var(--energy-green));
       color: #000;
       font-weight: 900;
       padding: 18px 50px;
@@ -132,21 +186,24 @@
       border-radius: 12px;
       text-transform: uppercase;
       text-decoration: none;
-      box-shadow: 0 8px 20px rgba(255, 111, 0, 0.5);
-      transition: background-color 0.25s ease, transform 0.2s ease;
+      box-shadow: 0 8px 20px rgba(0, 255, 65, 0.5), 0 0 30px rgba(0, 255, 65, 0.3);
+      transition: all 0.25s ease;
       user-select: none;
       animation: bounce 2s ease-in-out infinite;
       align-self: center;
       margin-top: 25px;
       max-width: 280px;
+      position: relative;
+      z-index: 2;
+      border: 2px solid var(--neon-green);
     }
 
     .cta-button:hover,
     .cta-button:focus {
-      background-color: #e65c00;
+      background: linear-gradient(45deg, var(--energy-green), var(--neon-green));
       transform: scale(1.1);
       outline: none;
-      box-shadow: 0 10px 30px rgba(255, 111, 0, 0.75);
+      box-shadow: 0 10px 30px rgba(0, 255, 65, 0.75), 0 0 50px rgba(0, 255, 65, 0.5);
     }
 
     @keyframes bounce {
@@ -160,8 +217,10 @@
       color: #f4f4f4;
       margin-top: 30px;
       letter-spacing: 1.2px;
-      text-shadow: 0 0 10px var(--orange);
+      text-shadow: 0 0 15px var(--neon-green);
       user-select: none;
+      position: relative;
+      z-index: 2;
     }
 
     /* SECTIONS */
@@ -172,17 +231,18 @@
       background-color: var(--grit);
       border-radius: 12px;
       margin-bottom: 50px;
-      box-shadow: 0 0 20px rgba(255, 111, 0, 0.15);
+      box-shadow: 0 0 20px rgba(0, 255, 65, 0.15), inset 0 0 20px rgba(0, 255, 65, 0.05);
       text-align: center;
+      border: 1px solid rgba(0, 255, 65, 0.2);
     }
 
     .section h2 {
       font-size: 2.75rem;
       font-weight: 800;
-      color: var(--orange);
+      color: var(--neon-green);
       text-transform: uppercase;
       margin-bottom: 25px;
-      text-shadow: 0 0 6px var(--orange);
+      text-shadow: 0 0 15px var(--neon-green);
     }
 
     .section p {
@@ -201,7 +261,8 @@
       max-width: 300px;
       width: 100%;
       border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(255, 111, 0, 0.25);
+      box-shadow: 0 8px 30px rgba(0, 255, 65, 0.25);
+      border: 2px solid rgba(0, 255, 65, 0.3);
     }
 
     /* VIDEO TEASE */
@@ -212,7 +273,8 @@
       margin: 0 auto 60px;
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 0 30px rgba(255, 111, 0, 0.35);
+      box-shadow: 0 0 30px rgba(0, 255, 65, 0.35);
+      border: 2px solid rgba(0, 255, 65, 0.4);
     }
 
     video#teaseVideo {
@@ -235,22 +297,24 @@
       padding: 10px;
       cursor: pointer;
       font-size: 32px;
-      color: var(--orange);
+      color: var(--neon-green);
       user-select: none;
-      box-shadow: 0 0 10px var(--orange);
-      transition: color 0.3s ease;
+      box-shadow: 0 0 15px var(--neon-green);
+      transition: all 0.3s ease;
       z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 48px;
       height: 48px;
+      border: 2px solid var(--neon-green);
     }
     .volume-icon:hover,
     .volume-icon:focus {
-      color: #fff;
+      color: var(--energy-green);
       outline: none;
-      box-shadow: 0 0 15px #fff;
+      box-shadow: 0 0 25px var(--energy-green);
+      transform: scale(1.1);
     }
 
     /* FOOTER */
@@ -261,6 +325,16 @@
       padding: 20px 10px;
       font-size: 0.9rem;
       user-select: none;
+      border-top: 1px solid rgba(0, 255, 65, 0.2);
+    }
+
+    /* Add some aggressive messaging styles */
+    .aggressive-text {
+      color: var(--energy-green);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px var(--energy-green);
     }
 
     /* Responsive */
@@ -340,8 +414,9 @@
       >Join the Swarm</a
     >
     <h1>BASE is Coming</h1>
-    <p>5g clinical-strength creatine monohydrate. Zero sugar. Just raw fuel. BASE is the punch your stack’s been missing. No shaker. No chalk. No BS.</p>
+    <p>5g clinical-strength creatine monohydrate. Zero sugar. Just raw fuel. BASE is the punch your stack's been missing. No shaker. No chalk. No BS.</p>
     <p><strong>Pop one. Unleash the swarm. Feel it kick in within 5 days.</strong></p>
+    <p class="aggressive-text">GET JACKED • LIFT HEAVY • OUTPERFORM EVERYONE</p>
     <div class="countdown" id="countdown" aria-live="polite" aria-atomic="true"></div>
     <a
       href="#"
@@ -388,6 +463,7 @@
   <section class="section" id="drop" aria-label="Founding drop details">
     <h2>What's in the Founding Drop?</h2>
     <p>🔥 Founding member pricing<br />🪧 Your name on the Founding Wall<br />🎟️ Founding edition Helix sticker<br />🚚 Front-of-line delivery priority</p>
+    <p class="aggressive-text">Watermelon Flavor - Zero Sugar Beast Mode</p>
     <img src="package.PNG" alt="BASE Creatine Gummy Package" class="product-image" />
     <p>No spam. Just raw updates. Unsubscribe anytime.</p>
   </section>
@@ -395,11 +471,13 @@
   <section class="section" id="why" aria-label="Why BASE section">
     <h2>Why BASE?</h2>
     <p>Because you're tired of scooping powdered lies. Because your fuel shouldn't taste like candy store BS. Because gummies should go hard too.</p>
+    <p class="aggressive-text">Raw. Intense. Unstoppable.</p>
   </section>
 
   <section class="section" id="prototype" aria-label="Be the Prototype section">
     <h2>Be the Prototype</h2>
     <p>This is for the ones who lift more than weight — they lift standards. BASE is a launchpad. You're first in. Don't watch the drop. Be the drop.</p>
+    <p class="aggressive-text">Lead the Pack. Set the Standard. Dominate.</p>
   </section>
 
   <footer class="footer" role="contentinfo">
@@ -427,7 +505,7 @@
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      countdown.textContent = `🔥 Launching in ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      countdown.textContent = `⚡ Launching in ${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
     updateCountdown();
     setInterval(updateCountdown, 1000);
